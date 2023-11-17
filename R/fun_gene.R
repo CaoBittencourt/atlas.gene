@@ -51,44 +51,76 @@
 #
 # [FUNCTIONS] ---------------------------
 # - Generality function ---------------------------------------------------
-fun_gene_generality <- function(dbl_profile, dbl_scale_lb = 0){
-
+fun_gene_generality <- function(
+    dbl_profile
+    , dbl_scale_lb = 0
+    , dbl_scale_ub = 100
+){
+  
   # Arguments validation
   stopifnot(
     "'dbl_profile' must be numeric." =
       is.numeric(dbl_profile)
   )
-
+  
   stopifnot(
     "'dbl_scale_lb' must be numeric." =
       is.numeric(dbl_scale_lb)
   )
-
+  
+  stopifnot(
+    "'dbl_scale_ub' must be numeric and greater than 'dbl_scale_lb'." =
+      all(
+        is.numeric(dbl_scale_ub)
+        , dbl_scale_ub >= 
+          dbl_scale_lb
+      )
+    
+  )
+  
   # Data wrangling
   dbl_scale_lb[[1]] -> dbl_scale_lb
-
+  dbl_scale_ub[[1]] -> dbl_scale_ub
+  
   # Drop NAs
   dbl_profile[!is.na(
     dbl_profile
   )] -> dbl_profile
-
+  
   # Apply bounded variable skewness function
-  fun_skew_sdmode(
-    dbl_var =
-      dbl_profile
-    , dbl_scale_lb =
-      dbl_scale_lb
-    , dbl_scale_ub =
-      max(dbl_profile)
-  ) -> dbl_generality
-
+  if(
+    dbl_scale_ub > 
+    dbl_scale_lb
+  ){
+    
+    fun_skew_sdmode(
+      dbl_var =
+        dbl_profile
+      , dbl_scale_lb =
+        dbl_scale_lb
+      , dbl_scale_ub =
+        max(dbl_profile)
+    ) -> dbl_generality
+    
+  } else {
+    
+    dbl_profile / (
+      dbl_scale_ub -
+        dbl_scale_lb
+    ) -
+      dbl_scale_lb / (
+        dbl_scale_ub -
+          dbl_scale_lb
+      ) -> dbl_generality
+    
+  }
+  
   rm(dbl_profile)
-
+  
   # Output
   return(dbl_generality)
-
+  
 }
-
 
 # # [TEST] ------------------------------------------------------------------
 # # - Generality test -------------------------------------------------------
