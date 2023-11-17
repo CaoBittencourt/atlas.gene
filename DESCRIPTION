@@ -1,7 +1,7 @@
 Package: atlas.gene
 Type: Package
 Title: A Professional Profile Generality Coefficient
-Version: 1.0.3
+Version: 1.0.4
 Author: Cao Bittencourt
 Maintainer: Cao Bittencourt <caobittencourt@gmail.com>
 Description: This package provides a metric to easily classify individuals as "generalists" or "specialists" in the professional sense. The coefficient of generality is a percentage calculated from the skewness of bounded human capital scores (i.e. a professional profile).

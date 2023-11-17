@@ -89,7 +89,7 @@ fun_gene_generality <- function(
   
   # Apply bounded variable skewness function
   if(
-    max(dbl_profile) > 
+    max(dbl_profile) != 
     dbl_scale_lb
   ){
     
@@ -104,14 +104,7 @@ fun_gene_generality <- function(
     
   } else {
     
-    dbl_profile[[1]] / (
-      dbl_scale_ub -
-        dbl_scale_lb
-    ) -
-      dbl_scale_lb / (
-        dbl_scale_ub -
-          dbl_scale_lb
-      ) -> dbl_generality
+    dbl_generality <- 1
     
   }
   
