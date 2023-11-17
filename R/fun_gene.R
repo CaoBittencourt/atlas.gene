@@ -104,7 +104,7 @@ fun_gene_generality <- function(
     
   } else {
     
-    dbl_profile / (
+    dbl_profile[[1]] / (
       dbl_scale_ub -
         dbl_scale_lb
     ) -
